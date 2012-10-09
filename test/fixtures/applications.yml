@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  app_id: 
+  bundle_id: 
+  artist_id: 
+  iphone: 
+  ipad: false
+
+two:
+  app_id: 
+  bundle_id: 
+  artist_id: 
+  iphone: 
+  ipad: false

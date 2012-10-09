@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  application_id: MyString
+  region_code: MyString
+  summary: MyText
+  icon_url: MyText
+
+two:
+  application_id: MyString
+  region_code: MyString
+  summary: MyText
+  icon_url: MyText

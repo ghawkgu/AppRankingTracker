@@ -11,7 +11,33 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121004080333) do
+ActiveRecord::Schema.define(:version => 20121005060917) do
+
+  create_table "application_details", :force => true do |t|
+    t.string   "application_id"
+    t.string   "region_code"
+    t.text     "summary"
+    t.text     "icon_url"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  create_table "applications", :id => false, :force => true do |t|
+    t.string   "id",         :null => false
+    t.string   "bundle_id"
+    t.boolean  "iphone"
+    t.boolean  "ipad"
+    t.string   "artist_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "artists", :id => false, :force => true do |t|
+    t.string   "id",         :null => false
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "categories", :id => false, :force => true do |t|
     t.string   "id",         :null => false
