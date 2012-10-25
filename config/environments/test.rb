@@ -34,4 +34,7 @@ AppRankingTracker::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  # RSS working dir
+  config.rss_storage_path = 'rss_storage'
 end

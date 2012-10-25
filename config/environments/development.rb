@@ -34,4 +34,7 @@ AppRankingTracker::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # RSS working dir
+  config.rss_storage_path = 'rss_storage'
 end
