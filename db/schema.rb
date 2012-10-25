@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121005060917) do
+ActiveRecord::Schema.define(:version => 20121024062400) do
 
   create_table "application_details", :force => true do |t|
     t.string   "application_id"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(:version => 20121005060917) do
     t.string   "parent_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "level"
   end
 
   create_table "regions", :id => false, :force => true do |t|

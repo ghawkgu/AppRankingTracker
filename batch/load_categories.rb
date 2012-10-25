@@ -3,19 +3,15 @@
 require 'open-uri'
 require 'nokogiri'
 
-page = Nokogiri::HTML(open('http://itunes.apple.com/us/genre/ios/id36?mt=8'))
+page = Nokogiri::HTML(open('https://itunes.apple.com/us/genre/ios/id36?mt=8'))
 
 def upsert_category(id, label, parent = nil)
-  category = nil
-  categories = Category.where({:id => id})
-  if categories.empty?
-    category = Category.create({:id => id, :label => label, :parent => parent})
-  else
-    category = categories.first
-  end
-
-  category
+  level = parent ? parent.level + 1 : 1;
+  category = Category.where(:id => id).first_or_create(:label => label, :level => level, :parent => parent)
 end
+
+top = Category.where(:id => '0').first_or_create(:label => 'All', :level => 0)
+puts top
 
 page.css('.grid3-column > ul > li').each { |node|
 
@@ -28,7 +24,7 @@ page.css('.grid3-column > ul > li').each { |node|
     node_info = {:id => id, :label => title, :href => href}
   }
 
-  category = upsert_category(node_info[:id], node_info[:label])
+  category = upsert_category(node_info[:id], node_info[:label], top)
   puts category
 
   node.css('>ul > li > a').each { |sub|
