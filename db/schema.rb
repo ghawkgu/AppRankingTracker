@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121025054220) do
+ActiveRecord::Schema.define(:version => 20121026064130) do
 
   create_table "application_details", :force => true do |t|
     t.string   "application_id"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20121025054220) do
     t.text     "icon_url"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.string   "name"
   end
 
   create_table "applications", :id => false, :force => true do |t|

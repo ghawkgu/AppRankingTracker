@@ -11,7 +11,7 @@ class RankingHistory < ActiveRecord::Base
     category_raw =  file.split("/").last.split("_")
     ranking_category = {
       :id => category_raw[-2],
-      :region_code => category_raw[-4],
+      :region_code => (category_raw[-4]).upcase,
     }
 
     update_time = Time.iso8601(dom.css('feed > updated').text)
@@ -54,15 +54,17 @@ class RankingHistory < ActiveRecord::Base
           ranking_category[:region_code]
         )
 
-      application_detail.icon_url = entry.xpath('im:image[@height="100"]').text()
-      application_detail.summary = entry.css('summary').text()
-      application_detail.application = application
-      application_detail.save
+      application_detail.update_attributes(
+        :icon_url => entry.xpath('im:image[@height="100"]').text(),
+        :summary => entry.css('summary').text(),
+        :application => application,
+        :name => entry.xpath('im:name').text(),
+      )
 
       history = RankingHistory.create(
         :update_time => update_time,
         :category_id => ranking_category[:id],
-        :region_code => ranking_category[:region_code].upcase,
+        :region_code => ranking_category[:region_code],
         :ranking => index + 1,
         :application => application
         )
