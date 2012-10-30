@@ -1,4 +1,5 @@
 require 'nokogiri'
+require 'fileutils'
 
 
 class RankingHistory < ActiveRecord::Base
@@ -23,11 +24,13 @@ class RankingHistory < ActiveRecord::Base
       category = Category.find(category_id)
 
       artist_node = entry.xpath('im:artist')
-      artist_url = artist_node.attr('href').value
-      artist_id = artist_url.match(/id(\d+)/)[1]
-      artist_name = artist_node.text()
-      artist = Artist.find_or_create_by_id(artist_id)
-      artist.update_attributes({:id => artist_id, :name => artist_name})
+      if artist_node.attr('href')
+        artist_url = artist_node.attr('href').value
+        artist_id = artist_url.match(/id(\d+)/)[1]
+        artist_name = artist_node.text()
+        artist = Artist.find_or_create_by_id(artist_id)
+        artist.update_attributes({:id => artist_id, :name => artist_name})
+      end
 
       app_id_node = entry.css('id')
       app_id = app_id_node.attr('id').value
@@ -69,6 +72,8 @@ class RankingHistory < ActiveRecord::Base
         :application => application
         )
     }
+
+    FileUtils.rm(file)
 
   end
 end

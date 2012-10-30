@@ -4,7 +4,7 @@ app_root = Rails.application.config.root
 rss_storage_path = Rails.application.config.rss_storage_path
 rss_storage_path = "#{app_root}/#{rss_storage_path}"
 
-file = "#{rss_storage_path}/jp_toppaidapplications_6014_Games.xml"
+file = ARGV[0] || "#{rss_storage_path}/jp_toppaidapplications_6014_Games.xml"
 dom = Nokogiri::XML(open(file, 'r:UTF-8'))
 
 category_raw =  file.split("/").last.split("_")
@@ -24,11 +24,13 @@ dom.css('entry').each_with_index { |entry, index|
   category = Category.find(category_id)
 
   artist_node = entry.xpath('im:artist')
-  artist_url = artist_node.attr('href').value
-  artist_id = artist_url.match(/id(\d+)/)[1]
-  artist_name = artist_node.text()
-  artist = Artist.where(:id => artist_id).first
-  artist = Artist.create(:id => artist_id, :name => artist_name) unless artist
+  if artist_node.attr('href')
+    artist_url = artist_node.attr('href').value
+    artist_id = artist_url.match(/id(\d+)/)[1]
+    artist_name = artist_node.text()
+    artist = Artist.where(:id => artist_id).first
+    artist = Artist.create(:id => artist_id, :name => artist_name) unless artist
+  end
 
   app_id_node = entry.css('id')
   app_id = app_id_node.attr('id').value
@@ -42,6 +44,7 @@ dom.css('entry').each_with_index { |entry, index|
     :releaseDate => Time.iso8601(entry.xpath('im:releaseDate').text),
   }
 
+  puts app_detail
 
   application = Application.where(:id => app_id).
     first_or_create(:bundle_id => app_bundle_id,
