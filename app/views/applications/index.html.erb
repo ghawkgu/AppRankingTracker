@@ -1,0 +1,6 @@
+<div id="content">
+  <%= form_tag({:action => 'search'}, {:method => :get}) do %>
+    <%= text_field_tag :keyword %>
+    <%= submit_tag 'Search' %>
+  <% end %>
+</div>

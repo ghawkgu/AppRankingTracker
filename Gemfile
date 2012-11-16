@@ -5,10 +5,14 @@ gem 'rails', '3.2.8'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+gem 'unicorn'
+
 gem 'sqlite3'
 gem 'pg'
 
 gem 'queue_classic', '~> 2.0.0'
+
+gem 'slim'
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -1,0 +1,17 @@
+<div id="content">
+  <% if (@result.empty?) %><div>Not found!</div><% end %>
+  <ul>
+    <% @result.each do |app| %>
+    <li>
+    <%=
+    link_to "#{app.id} #{app.details.first.name} Ranking history",
+      {
+        :controller => 'ranking_histories',
+        :action => 'list',
+        :id => app.id,
+      }
+    %>
+        </li>
+    <% end %>
+  </ul>
+</div>

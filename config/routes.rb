@@ -1,4 +1,6 @@
 AppRankingTracker::Application.routes.draw do
+  resources :applications, :only => ['index', 'search']
+  resources :ranking_histories, :only => ['list']
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
